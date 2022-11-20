@@ -9,10 +9,14 @@ fetch('http://localhost:3000/projects')
 
 function addProjects(projects) {
     let addProject
+    let container
     projects.map(function(a) {
-        addProject = document.createElement('h1'),
+        container = document.createElement('div')
+        container.className = "projects"
+        addProject = document.createElement('h1')
         addProject.innerHTML = a['name']
-        document.querySelector('.projects').append(addProject)
+        container.append(addProject)
+        document.body.append(container)
     }
         )
 }
