@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
+// Fetch request to get all projects
 fetch('http://localhost:3000/projects')
 .then(resp => resp.json())
 .then(data => addProjects(data))
@@ -32,4 +33,13 @@ function addProjects(projects) {
         document.body.append(container)
     }
         )
+}
+
+// Project class
+class Project {
+    constructor(name, description, due_date) {
+        this.name = name
+        this.description = description
+        this.due_date = due_date
+    }
 }
