@@ -43,3 +43,29 @@ class Project {
         this.due_date = due_date
     }
 }
+
+// Form Fields
+let title
+let desc
+let date
+
+// Test submit even listener
+function testFunction() {
+    document.querySelector('input#NewProject')
+            .addEventListener('click', fetch('http://127.0.0.1:3000/projects', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    name: document.querySelector('input#nameField').value,
+                    description: document.querySelector('input#descField').value,
+                    due_date: document.querySelector('input#dateField').value
+                }) })
+            .then(resp => console.log(resp.json()))
+            // .then(data => console.log(data)))
+            )
+}
+
+setTimeout(() => testFunction(), 1500)
