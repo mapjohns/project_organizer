@@ -4,4 +4,15 @@ class ProjectsController < ApplicationController
         projects = Project.all
         render json: projects, except: [:created_at, :updated_at]
     end
+
+    def create
+        project = Project.new(project_params)
+        project.save
+    end
+
+    private
+
+    def project_params
+        params.require(:project).permit(:name, :description, :due_date)
+    end
 end
