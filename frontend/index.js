@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Loaded!")
+    document.querySelector('input#NewProject').addEventListener('click', testFunction)
   });
 
 
@@ -49,10 +50,9 @@ let title
 let desc
 let date
 
-// Test submit even listener
+// Test submit event listener
 function testFunction() {
-    document.querySelector('input#NewProject')
-            .addEventListener('click', fetch('http://127.0.0.1:3000/projects', {
+    fetch('http://localhost:3000/projects', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -61,11 +61,11 @@ function testFunction() {
                 body: JSON.stringify({
                     name: document.querySelector('input#nameField').value,
                     description: document.querySelector('input#descField').value,
-                    due_date: document.querySelector('input#dateField').value
-                }) })
-            .then(resp => console.log(resp.json()))
+                    due_date: '2022-11-20T12:00:00.000Z'
+                    // document.querySelector('input#dateField').value
+                }) 
+            })
+            .then(resp => console.log(resp))
+            // .then(data => console.log(data))
             // .then(data => console.log(data)))
-            )
 }
-
-setTimeout(() => testFunction(), 1500)
