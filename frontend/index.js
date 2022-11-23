@@ -51,7 +51,8 @@ let desc
 let date
 
 // Test submit event listener
-function testFunction() {
+function testFunction(e) {
+    e.preventDefault();
     fetch('http://localhost:3000/projects', {
                 method: "POST",
                 headers: {
@@ -65,7 +66,6 @@ function testFunction() {
                     // document.querySelector('input#dateField').value
                 }) 
             })
-            .then(resp => console.log(resp))
-            // .then(data => console.log(data))
-            // .then(data => console.log(data)))
+            .then(resp => resp.json())
+            .then(object => addProjects([object]))
 }
