@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
     def create
         project = Project.new(project_params)
         project.save
+        render json: project, except: [:created_at, :updated_at]
     end
 
     private
