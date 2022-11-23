@@ -62,10 +62,10 @@ function testFunction(e) {
                 body: JSON.stringify({
                     name: document.querySelector('input#nameField').value,
                     description: document.querySelector('input#descField').value,
-                    due_date: '2022-11-20T12:00:00.000Z'
-                    // document.querySelector('input#dateField').value
+                    due_date: new Date(document.querySelector('input#dateField').value)
                 }) 
             })
             .then(resp => resp.json())
             .then(object => addProjects([object]))
+            .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
 }
