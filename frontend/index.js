@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Loaded!")
-    document.querySelector('input#NewProject').addEventListener('click', testFunction)
+    document.querySelector('input#NewProject').addEventListener('click', createProject)
   });
 
 
@@ -28,7 +28,7 @@ function addProjects(projects) {
 
         // Add due date
         addProject = document.createElement('h3')
-        addProject.innerHTML = `Due: ${a['due_date']}`
+        addProject.innerHTML = `Due: ${new Date(a['due_date']).toLocaleDateString()}`
         container.append(addProject)
 
         document.body.append(container)
@@ -45,13 +45,8 @@ class Project {
     }
 }
 
-// Form Fields
-let title
-let desc
-let date
-
-// Test submit event listener
-function testFunction(e) {
+// Creates project on submit
+function createProject(e) {
     e.preventDefault();
     fetch('http://localhost:3000/projects', {
                 method: "POST",
