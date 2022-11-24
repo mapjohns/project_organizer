@@ -1,0 +1,8 @@
+div.projects {
+    background-color: aqua;
+    margin-bottom: 2%;
+}
+
+div.projects > h3, h2 {
+    margin: 0%;
+}
