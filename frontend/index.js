@@ -3,6 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('input#NewProject').addEventListener('click', createProject)
   });
 
+// Project class
+class Project {
+    constructor(name, description, due_date) {
+        this.name = name
+        this.description = description
+        this.due_date = due_date
+        projects()
+    }
+
+}
 
 // Fetch request to get all projects
 fetch('http://localhost:3000/projects')
@@ -12,6 +22,12 @@ fetch('http://localhost:3000/projects')
 function addProjects(projects) {
     let addProject
     let container
+
+    projects.map(function(a) {
+        new Project(a.name, a.description, a.due_date)
+    })
+
+
     projects.map(function(a) {
         container = document.createElement('div')
         container.className = "projects"
@@ -34,15 +50,6 @@ function addProjects(projects) {
         document.body.append(container)
     }
         )
-}
-
-// Project class
-class Project {
-    constructor(name, description, due_date) {
-        this.name = name
-        this.description = description
-        this.due_date = due_date
-    }
 }
 
 // Creates project on submit
