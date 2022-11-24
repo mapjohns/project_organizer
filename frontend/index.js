@@ -27,6 +27,7 @@ function addProjects(projects) {
         let project = new Project(a.id, a.name, a.description, a.due_date)
         container = document.createElement('div')
         container.className = "projects"
+        container.id = project.id
 
         // Add project name
         addProject = document.createElement('h2')
