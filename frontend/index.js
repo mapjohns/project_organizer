@@ -12,6 +12,16 @@ class Project {
         this.due_date = due_date
     }
 
+    addTaskForm() {
+        let newButton = document.createElement('button')
+        newButton.innerHTML = "Add Task"
+        newButton.addEventListener('click', toggleHidden)
+        return newButton
+    }
+
+}
+
+function toggleHidden() {
 }
 
 // Fetch request to get all projects
@@ -42,8 +52,26 @@ function addProjects(projects) {
         // Add due date
         addProject = document.createElement('h3')
         addProject.innerHTML = `Due: ${new Date(project.due_date).toLocaleDateString()}`
-        container.append(addProject)
+        container.append(addProject, project.addTaskForm())
 
+        // Add task form
+        taskForm = document.createElement('div')
+        taskForm.className = "hiddenTaskForm"
+        let taskArray = ['name', 'dueDate']
+
+        taskArray.map(function(a) {
+            let formLabel = document.createElement('label')
+            formLabel.innerHTML = `${a}`
+
+            let CreateBR = document.createElement('br')
+
+            let formInput = document.createElement('input')
+            formInput.id = `${a}Field`
+
+            taskForm.append(formLabel, CreateBR, formInput, CreateBR)
+        })
+
+        container.append(taskForm)
         document.body.append(container)
     }
         )
