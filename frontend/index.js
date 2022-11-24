@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Project class
 class Project {
-    constructor(name, description, due_date) {
+    constructor(id, name, description, due_date) {
+        this.id = id
         this.name = name
         this.description = description
         this.due_date = due_date
-        projects()
     }
 
 }
@@ -24,27 +24,23 @@ function addProjects(projects) {
     let container
 
     projects.map(function(a) {
-        new Project(a.name, a.description, a.due_date)
-    })
-
-
-    projects.map(function(a) {
+        let project = new Project(a.id, a.name, a.description, a.due_date)
         container = document.createElement('div')
         container.className = "projects"
 
         // Add project name
         addProject = document.createElement('h2')
-        addProject.innerHTML = a['name']
+        addProject.innerHTML = project.name
         container.append(addProject)
 
         // Add project description
         addProject = document.createElement('h3')
-        addProject.innerHTML = a['description']
+        addProject.innerHTML = project.description
         container.append(addProject)
 
         // Add due date
         addProject = document.createElement('h3')
-        addProject.innerHTML = `Due: ${new Date(a['due_date']).toLocaleDateString()}`
+        addProject.innerHTML = `Due: ${new Date(project.due_date).toLocaleDateString()}`
         container.append(addProject)
 
         document.body.append(container)
