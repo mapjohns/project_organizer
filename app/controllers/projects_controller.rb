@@ -11,6 +11,11 @@ class ProjectsController < ApplicationController
         render json: project, except: [:created_at, :updated_at]
     end
 
+    def show
+        project = Project.find_by(id: params[:id])
+        render json: project, except: [:created_at, :updated_at]
+    end
+
     private
 
     def project_params
