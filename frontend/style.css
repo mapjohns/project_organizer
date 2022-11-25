@@ -6,3 +6,7 @@ div.projects {
 div.projects > h3, h2 {
     margin: 0%;
 }
+
+.hiddenTaskForm {
+    display: none;
+}
