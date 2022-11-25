@@ -23,7 +23,7 @@ class Project {
 }
 
 function toggleHidden(e) {
-    let taskForm = document.getElementById(`${e.path[0].id}`).querySelector('button + div')
+    let taskForm = document.getElementById(`${e.composedPath()[0].id}`).querySelector('button + div')
     taskForm.className === "" ? taskForm.className = "hiddenTaskForm" : taskForm.className = ""
 }
 
