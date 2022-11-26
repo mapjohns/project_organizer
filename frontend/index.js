@@ -60,7 +60,7 @@ function addProjects(projects) {
         // Add task form
         taskForm = document.createElement('div')
         taskForm.className = "hiddenTaskForm"
-        let taskArray = ['name', 'dueDate']
+        let taskArray = ['name']
 
         taskArray.map(function(a) {
             let formLabel = document.createElement('label')
@@ -69,6 +69,7 @@ function addProjects(projects) {
             let CreateBR = document.createElement('br')
 
             let formInput = document.createElement('input')
+            formInput.addEventListener("keydown", addTaskToProject)
             formInput.id = `${a}Field`
 
             taskForm.append(formLabel, CreateBR, formInput, CreateBR)
@@ -78,6 +79,26 @@ function addProjects(projects) {
         document.body.append(container)
     }
         )
+}
+
+let test1
+
+function addTaskToProject(e) {
+    test1 = e.composedPath()
+    if (e.key === "Enter") {
+        fetch('http://localhost:3000/tasks', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                name: e.composedPath()[0].value,
+                project_id: e.composedPath()[2].id
+            })
+        })
+        .then(resp => resp.json())
+    }
 }
 
 // Creates project on submit
