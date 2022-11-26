@@ -132,6 +132,12 @@ function createTask(e) {
     }
 }
 
+// Fetch tasks and add to page
+fetch('http://localhost:3000/tasks')
+.then(resp => resp.json())
+.then(data => addTasksToProjects(data))
+
+
 function addTasksToProjects(tasks) {
     let taskInput
     let label
