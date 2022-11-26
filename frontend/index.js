@@ -31,6 +31,7 @@ function toggleHidden(e) {
 fetch('http://localhost:3000/projects')
 .then(resp => resp.json())
 .then(data => addProjects(data))
+.then(getTasks)
 
 // Called by projects fetch, will add projects to the page
 function addProjects(projects) {
@@ -71,7 +72,7 @@ function addProjects(projects) {
 
             let formInput = document.createElement('input')
             formInput.addEventListener("keydown", createTask)
-            formInput.id = `${a}Field`
+            formInput.className = `${a}Field`
 
             taskForm.append(formLabel, CreateBR, formInput, CreateBR)
         })
@@ -132,10 +133,12 @@ function createTask(e) {
     }
 }
 
-// Fetch tasks and add to page
+// Fetch tasks and add to page called by Project Fetch
+function getTasks() {
 fetch('http://localhost:3000/tasks')
 .then(resp => resp.json())
 .then(data => addTasksToProjects(data))
+}
 
 
 function addTasksToProjects(tasks) {
