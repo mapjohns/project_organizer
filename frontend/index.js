@@ -23,7 +23,7 @@ class Project {
 }
 
 function toggleHidden(e) {
-    let taskForm = document.getElementById(`${e.composedPath()[0].id}`).querySelector('button + div')
+    let taskForm = document.getElementById(`project${e.composedPath()[0].id}`).querySelector('button + div')
     taskForm.className === "" ? taskForm.className = "hiddenTaskForm" : taskForm.className = ""
 }
 
@@ -40,7 +40,7 @@ function addProjects(projects) {
         let project = new Project(a.id, a.name, a.description, a.due_date)
         container = document.createElement('div')
         container.className = "projects"
-        container.id = project.id
+        container.id = `project${project.id}`
 
         // Add project name
         addProject = document.createElement('h2')
@@ -101,17 +101,20 @@ function createProject(e) {
             .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
 }
 
+// Task class
 class Task {
-    constructor() {
-
+    constructor(id, name, project_id, status) {
+        this.id = id
+        this.name = name
+        this.project_id = project_id
+        this.status = status
     }
 }
-
-let test1
 
 // Creates task and posts to db
 function createTask(e) {
     if (e.key === "Enter") {
+        e.preventDefault();
         fetch('http://localhost:3000/tasks', {
             method: "POST",
             headers: {
@@ -120,15 +123,20 @@ function createTask(e) {
             },
             body: JSON.stringify({
                 name: e.composedPath()[0].value,
-                project_id: e.composedPath()[2].id
+                project_id: e.composedPath()[2].id.slice(7)
             })
         })
         .then(resp => resp.json())
-        .then(object => test1 = object)
+        .then(object => addTasksToProjects([object]))
     }
 }
 
-function addTasksToProjects() {
+let testTask
+function addTasksToProjects(tasks) {
     
+    tasks.map(function(a) {
+        testTask = new Task(a.id, a.name, a.project_id, a.status)
+        console.log(a)
+    })
 }
 
