@@ -136,15 +136,20 @@ function addTasksToProjects(tasks) {
     let taskInput
     let label
     tasks.map(function(a) {
-        testTask = new Task(a.id, a.name, a.project_id, a.status)
+        let testTask = new Task(a.id, a.name, a.project_id, a.status)
         // id use project#task#
         taskInput = document.createElement('input')
         taskInput.className = "tasks"
         taskInput.id = `task${testTask.id}`
+        taskInput.type = 'checkbox'
 
         label = document.createElement('label')
         label.setAttribute("for", `${taskInput.id}`)
-        console.log(taskInput)
+        label.innerHTML = `${testTask.name}`
+
+        br = document.createElement('br')
+
+        document.getElementById(`project${testTask.project_id}`).querySelector('h3 + h3').append(br, label, taskInput)
     })
 }
 
