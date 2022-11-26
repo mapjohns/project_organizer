@@ -32,6 +32,7 @@ fetch('http://localhost:3000/projects')
 .then(resp => resp.json())
 .then(data => addProjects(data))
 
+// Called by projects fetch, will add projects to the page
 function addProjects(projects) {
     let addProject
     let container
@@ -131,12 +132,19 @@ function createTask(e) {
     }
 }
 
-let testTask
 function addTasksToProjects(tasks) {
-    
+    let taskInput
+    let label
     tasks.map(function(a) {
         testTask = new Task(a.id, a.name, a.project_id, a.status)
-        console.log(a)
+        // id use project#task#
+        taskInput = document.createElement('input')
+        taskInput.className = "tasks"
+        taskInput.id = `task${testTask.id}`
+
+        label = document.createElement('label')
+        label.setAttribute("for", `${taskInput.id}`)
+        console.log(taskInput)
     })
 }
 
