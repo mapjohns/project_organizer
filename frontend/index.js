@@ -130,6 +130,7 @@ function createTask(e) {
         })
         .then(resp => resp.json())
         .then(object => addTasksToProjects([object]))
+        .then(e.composedPath()[0].value = "")
     }
 }
 
