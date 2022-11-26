@@ -1,5 +1,11 @@
 class TasksController < ApplicationController
 
+    def index
+        tasks = Task.all
+        render json: tasks, except: [:created_at, :updated_at]
+
+    end
+    
     def create
         task = Task.new(name: params[:name], project_id: params[:project_id])
         task.save
