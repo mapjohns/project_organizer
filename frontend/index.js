@@ -30,14 +30,21 @@ class Project {
 
     addEditProjectForm() {
         let array = ['name', 'description', 'due_date']
-
         let container = document.createElement('div')
+
+        // Loops through array and creates elements for those 3 fields
         array.map(function(a) {
         let input = document.createElement('input')
         input.id = `pj${a.substring(0,2)}${this.id}`
+        input.value = `${this.a}`
         let br = document.createElement('br')
         let label = document.createElement('label')
-        label.setAttribute("for", `pjn${this.id}`)})
+        label.setAttribute("for", `pj${a.substring(0,2)}${this.id}`)
+        container.append(label, br, input)
+    })
+    let button = document.createElement('button')
+    button.innerHTML = "Update"
+    button.addEventListener('click', updateProject)
 
     }
 }
@@ -124,7 +131,9 @@ function createProject(e) {
 }
 
 // Update Project
+function updateProject(e) {
 
+}
 
 
 
