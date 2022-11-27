@@ -42,10 +42,13 @@ class Project {
         label.setAttribute("for", `pj${a.substring(0,2)}${this.id}`)
         container.append(label, br, input)
     })
+    // Creates button and then adds eventlistener to call updateProject
     let button = document.createElement('button')
     button.innerHTML = "Update"
     button.addEventListener('click', updateProject)
 
+    container.append(button)
+    return container
     }
 }
 
