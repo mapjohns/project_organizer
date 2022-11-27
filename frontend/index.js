@@ -20,6 +20,12 @@ class Project {
         return newButton
     }
 
+    addEditButton() {
+        let editButton = document.createElement('button')
+        editButton.innerHTML = "Edit"
+        editButton.addEventListener('click', console.log("POOTIS!"))
+        return editButton
+    }
 }
 
 function toggleHidden(e) {
@@ -77,7 +83,7 @@ function addProjects(projects) {
             taskForm.append(formLabel, CreateBR, formInput, CreateBR)
         })
 
-        container.append(taskForm)
+        container.append(taskForm, project.addEditButton())
         document.body.append(container)
     }
         )
@@ -102,6 +108,11 @@ function createProject(e) {
             .then(object => addProjects([object]))
             .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
 }
+
+// Update Project
+
+
+
 
 // Task class
 class Task {
