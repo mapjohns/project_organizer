@@ -24,13 +24,15 @@ class Project {
         let editButton = document.createElement('button')
         editButton.innerHTML = "Edit"
         editButton.className = "editProject"
-        editButton.addEventListener('click', console.log("POOTIS!"))
+        editButton.id = `editButton${this.id}`
+        editButton.addEventListener('click', toggleUpdateFormVisibility)
         return editButton
     }
 
     addEditProjectForm() {
         let container = document.createElement('div')
         container.id = this.id
+        container.className = "hiddenUpdateForm"
 
         // Name
         let nameInput = document.createElement('input')
@@ -64,9 +66,15 @@ class Project {
     }
 }
 
+// Functions to hide forms
 function toggleHidden(e) {
     let taskForm = document.getElementById(`project${e.composedPath()[0].id}`).querySelector('button + div')
     taskForm.className === "" ? taskForm.className = "hiddenTaskForm" : taskForm.className = ""
+}
+
+function toggleUpdateFormVisibility(e) {
+   let path = document.getElementById(`project${e.composedPath()[0].id.substring(10)}`).querySelector('div + button + div')
+   path.className === "" ? path.className = "hiddenUpdateForm" : path.className = ""
 }
 
 // Fetch request to get all projects
