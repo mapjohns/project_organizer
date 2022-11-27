@@ -23,8 +23,22 @@ class Project {
     addEditButton() {
         let editButton = document.createElement('button')
         editButton.innerHTML = "Edit"
+        editButton.className = "editProject"
         editButton.addEventListener('click', console.log("POOTIS!"))
         return editButton
+    }
+
+    addEditProjectForm() {
+        let array = ['name', 'description', 'due_date']
+
+        let container = document.createElement('div')
+        array.map(function(a) {
+        let input = document.createElement('input')
+        input.id = `pj${a.substring(0,2)}${this.id}`
+        let br = document.createElement('br')
+        let label = document.createElement('label')
+        label.setAttribute("for", `pjn${this.id}`)})
+
     }
 }
 
