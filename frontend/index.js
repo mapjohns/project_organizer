@@ -29,26 +29,38 @@ class Project {
     }
 
     addEditProjectForm() {
-        let array = ['name', 'description', 'due_date']
         let container = document.createElement('div')
+        container.id = this.id
 
-        // Loops through array and creates elements for those 3 fields
-        array.map(function(a) {
-        let input = document.createElement('input')
-        input.id = `pj${a.substring(0,2)}${this.id}`
-        input.value = `${this.a}`
+        // Name
+        let nameInput = document.createElement('input')
+        nameInput.value = this.name
+        let nameLabel = document.createElement('label')
+        nameLabel.innerHTML = "Name"
+
+        // Description
+        let descriptionInput = document.createElement('input')
+        descriptionInput.value = this.description
+        let descriptionLabel = document.createElement('label')
+        descriptionLabel.innerHTML = "Description"
+
+        // Description
+        let dueDateInput = document.createElement('input')
+        dueDateInput.value = this.due_date
+        let dueDateLabel = document.createElement('label')
+        dueDateLabel.innerHTML = "Due: "
+        
+
+        // Creates button and then adds eventlistener to call updateProject
+        let button = document.createElement('button')
+        button.innerHTML = "Update"
+        button.addEventListener('click', updateProject)
+
+        // Create line break
         let br = document.createElement('br')
-        let label = document.createElement('label')
-        label.setAttribute("for", `pj${a.substring(0,2)}${this.id}`)
-        container.append(label, br, input)
-    })
-    // Creates button and then adds eventlistener to call updateProject
-    let button = document.createElement('button')
-    button.innerHTML = "Update"
-    button.addEventListener('click', updateProject)
 
-    container.append(button)
-    return container
+        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, br, dueDateInput, br, button)
+        return container
     }
 }
 
@@ -107,7 +119,7 @@ function addProjects(projects) {
             taskForm.append(formLabel, CreateBR, formInput, CreateBR)
         })
 
-        container.append(taskForm, project.addEditButton())
+        container.append(taskForm, project.addEditButton(), project.addEditProjectForm())
         document.body.append(container)
     }
         )
