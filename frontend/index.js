@@ -72,7 +72,7 @@ class Project {
         // Create line break
         let br = document.createElement('br')
 
-        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, br, dueDateInput, br, updateButton)
+        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, br, dueDateInput, br, updateButton, br, deleteButton)
         return container
     }
 }
@@ -193,8 +193,13 @@ function updateProject(e) {
 }
 
 // Delete Project
-function deleteProject() {
-    
+function deleteProject(e) {
+    deleteID = e.composedPath()[2].id.substring(7)
+    fetch(`http://localhost:3000/projects/${deleteID}`, {
+        method: 'DELETE',
+    })
+    .then(console.log("SUCCESS"))
+    // fetch()
 }
 
 // Task class
