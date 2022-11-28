@@ -59,15 +59,20 @@ class Project {
         dueDateLabel.innerHTML = "Due: "
         
 
-        // Creates button and then adds eventlistener to call updateProject
-        let button = document.createElement('button')
-        button.innerHTML = "Update"
-        button.addEventListener('click', updateProject)
+        // Creates Update button and then adds eventlistener to call updateProject
+        let updateButton = document.createElement('button')
+        updateButton.innerHTML = "Update"
+        updateButton.addEventListener('click', updateProject)
+
+        // Creates Delete button and then adds eventlistener to call deleteProject
+        let deleteButton = document.createElement('button')
+        deleteButton.innerHTML = "Delete"
+        deleteButton.addEventListener('click', deleteProject)
 
         // Create line break
         let br = document.createElement('br')
 
-        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, br, dueDateInput, br, button)
+        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, br, dueDateInput, br, updateButton)
         return container
     }
 }
@@ -187,7 +192,10 @@ function updateProject(e) {
     })
 }
 
-
+// Delete Project
+function deleteProject() {
+    
+}
 
 // Task class
 class Task {
