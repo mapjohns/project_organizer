@@ -50,7 +50,7 @@ class Project {
         descriptionLabel.setAttribute("for", descriptionInput.id)
         descriptionLabel.innerHTML = "Description"
 
-        // Description
+        // Due Date
         let dueDateInput = document.createElement('input')
         dueDateInput.value = this.due_date
         dueDateInput.id = `updateDate${this.id}`
@@ -161,7 +161,19 @@ function createProject(e) {
 
 // Update Project
 function updateProject(e) {
-    console.log(e)
+    let projectID = e.composedPath()[2].id.substring(7)
+    fetch(`http://localhost:3000/projects/${projectID}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            name: document.getElementById(`updateName${projectID}`).value,
+            description: document.getElementById(`updateDescription${projectID}`).value,
+            due_date: document.getElementById(`updateDate${projectID}`).value
+        })
+    })
 }
 
 
