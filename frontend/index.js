@@ -158,10 +158,15 @@ function createProject(e) {
             .then(object => addProjects([object]))
             .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
 }
-
+let updateEvent
 // Update Project
 function updateProject(e) {
     let projectID = e.composedPath()[2].id.substring(7)
+    let nameField = document.getElementById(`updateName${projectID}`)
+    let descField = document.getElementById(`updateDescription${projectID}`)
+    let dateField = document.getElementById(`updateDate${projectID}`)
+
+    e.preventDefault();
     fetch(`http://localhost:3000/projects/${projectID}`, {
         method: "PATCH",
         headers: {
@@ -169,10 +174,14 @@ function updateProject(e) {
             "Accept": "application/json"
         },
         body: JSON.stringify({
-            name: document.getElementById(`updateName${projectID}`).value,
-            description: document.getElementById(`updateDescription${projectID}`).value,
-            due_date: document.getElementById(`updateDate${projectID}`).value
+            name: nameField.value,
+            description: descField.value,
+            due_date: dateField.value
         })
+    })
+    .then(resp => resp.json())
+    .then(function(object) {
+        document.getElementById(`project${object.id}`).querySelector()
     })
 }
 
@@ -234,7 +243,7 @@ function addTasksToProjects(tasks) {
 
         br = document.createElement('br')
 
-        document.getElementById(`project${testTask.project_id}`).querySelector('h3 + h3').append(br, label, taskInput)
+        document.getElementById(`project${testTask.project_id}`).querySelector('h3 + h3').after(br, label, taskInput)
     })
 }
 
