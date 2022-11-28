@@ -199,7 +199,7 @@ function deleteProject(e) {
         method: 'DELETE',
     })
     .then(console.log("SUCCESS"))
-    // fetch()
+    .then(document.getElementById(e.composedPath()[2].id).remove())
 }
 
 // Task class
