@@ -52,7 +52,7 @@ class Project {
 
         // Due Date
         let dueDateInput = document.createElement('input')
-        dueDateInput.value = this.due_date
+        dueDateInput.value = new Date(this.due_date).toLocaleDateString()
         dueDateInput.id = `updateDate${this.id}`
         let dueDateLabel = document.createElement('label')
         dueDateLabel.setAttribute("for", dueDateInput.id)
@@ -158,7 +158,7 @@ function createProject(e) {
             .then(object => addProjects([object]))
             .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
 }
-let updateEvent
+
 // Update Project
 function updateProject(e) {
     let projectID = e.composedPath()[2].id.substring(7)
@@ -176,7 +176,7 @@ function updateProject(e) {
         body: JSON.stringify({
             name: nameField.value,
             description: descField.value,
-            due_date: dateField.value
+            due_date: new Date(dateField.value)
         })
     })
     .then(resp => resp.json())
