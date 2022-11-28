@@ -16,6 +16,12 @@ class ProjectsController < ApplicationController
         render json: project, except: [:created_at, :updated_at]
     end
 
+    def update
+        project = Project.find_by(id: params[:id])
+        project.update(project_params)
+        render json: project, except: [:created_at, :updated_at]
+    end
+
     private
 
     def project_params
