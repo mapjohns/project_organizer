@@ -22,6 +22,11 @@ class ProjectsController < ApplicationController
         render json: project, except: [:created_at, :updated_at]
     end
 
+    def destroy
+        project = Project.find_by(id: params[:id])
+        project.destroy
+    end
+
     private
 
     def project_params
