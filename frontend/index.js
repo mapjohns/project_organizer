@@ -36,20 +36,26 @@ class Project {
 
         // Name
         let nameInput = document.createElement('input')
+        nameInput.id = `updateName${this.id}`
         nameInput.value = this.name
         let nameLabel = document.createElement('label')
+        nameLabel.setAttribute("for", nameInput.id)
         nameLabel.innerHTML = "Name"
 
         // Description
         let descriptionInput = document.createElement('input')
         descriptionInput.value = this.description
+        descriptionInput.id = `updateDescription${this.id}`
         let descriptionLabel = document.createElement('label')
+        descriptionLabel.setAttribute("for", descriptionInput.id)
         descriptionLabel.innerHTML = "Description"
 
         // Description
         let dueDateInput = document.createElement('input')
         dueDateInput.value = this.due_date
+        dueDateInput.id = `updateDate${this.id}`
         let dueDateLabel = document.createElement('label')
+        dueDateLabel.setAttribute("for", dueDateInput.id)
         dueDateLabel.innerHTML = "Due: "
         
 
@@ -155,7 +161,7 @@ function createProject(e) {
 
 // Update Project
 function updateProject(e) {
-
+    console.log(e)
 }
 
 
