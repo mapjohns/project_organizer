@@ -181,7 +181,9 @@ function updateProject(e) {
     })
     .then(resp => resp.json())
     .then(function(object) {
-        document.getElementById(`project${object.id}`).querySelector()
+        document.getElementById(`project${object.id}`).querySelector('h2').innerHTML = object.name
+        document.getElementById(`project${object.id}`).querySelector('h3').innerHTML = descField.value
+        document.getElementById(`project${object.id}`).querySelector('h3 + h3').innerHTML = dateField.value
     })
 }
 
