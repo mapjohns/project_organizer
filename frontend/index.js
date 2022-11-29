@@ -219,24 +219,30 @@ class Task {
 
         let taskName = document.createElement('h4')
         taskName.innerHTML = this.name
+        taskName.id = `projectTask${taskID}`
         taskName.addEventListener('click', function(){
-            taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "hiddenTaskForm" : taskContainer.querySelector('div div').className = ""
+            taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "" : taskContainer.querySelector('div div').className = "hiddenTaskForm"
         })
 
+
         let secondContainer = document.createElement('div')
+        secondContainer.className = "hiddenTaskForm"
 
         taskContainer.append(taskName)
         taskContainer.querySelector('h4').after(secondContainer)
+
+        taskName.addEventListener('click', function(){
+            taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "hiddenTaskForm" : taskContainer.querySelector('div div').className = ""
+        })
 
         let array = ["Update", "Delete", "Complete"]
         array.map(function(a) {
             let button = document.createElement('button')
             button.innerHTML = a
             button.id = `${a}Task${taskID}`
-            button.className = "hiddenTaskForm"
-            taskContainer.querySelector('div').appendChild(button)
+            taskContainer.querySelector('div div').appendChild(button)
         })
-
+        return taskContainer
     }
 
 }
@@ -271,23 +277,23 @@ fetch('http://localhost:3000/tasks')
 
 
 function addTasksToProjects(tasks) {
-    let taskInput
-    let label
+    // let taskInput
+    // let label
     tasks.map(function(a) {
-        let testTask = new Task(a.id, a.name, a.project_id, a.status)
+        let task = new Task(a.id, a.name, a.project_id, a.status)
         // id use project#task#
-        taskInput = document.createElement('input')
-        taskInput.className = "tasks"
-        taskInput.id = `task${testTask.id}`
-        taskInput.type = 'checkbox'
+        // taskInput = document.createElement('input')
+        // taskInput.className = "tasks"
+        // taskInput.id = `task${testTask.id}`
+        // taskInput.type = 'checkbox'
 
-        label = document.createElement('label')
-        label.setAttribute("for", `${taskInput.id}`)
-        label.innerHTML = `${testTask.name}`
+        // label = document.createElement('label')
+        // label.setAttribute("for", `${taskInput.id}`)
+        // label.innerHTML = `${testTask.name}`
 
         br = document.createElement('br')
 
-        document.getElementById(`project${testTask.project_id}`).querySelector('h3 + h3').after(br, label, taskInput)
+        document.getElementById(`project${task.project_id}`).querySelector('h3 + h3').after(task.addTaskOptions())
     })
 }
 
