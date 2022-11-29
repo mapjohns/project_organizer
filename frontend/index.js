@@ -219,7 +219,9 @@ class Task {
 
         let taskName = document.createElement('h4')
         taskName.innerHTML = this.name
-        taskName.addEventListener('click', toggleHidden)
+        taskName.addEventListener('click', function(){
+            taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "hiddenTaskForm" : taskContainer.querySelector('div div').className = ""
+        })
 
         let secondContainer = document.createElement('div')
 
