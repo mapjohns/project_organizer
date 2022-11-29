@@ -118,7 +118,7 @@ function addProjects(projects) {
         // Add due date
         addProject = document.createElement('h3')
         addProject.innerHTML = `Due: ${new Date(project.due_date).toLocaleDateString()}`
-        container.append(addProject, project.addTaskForm())
+        container.append(addProject,  document.createElement('ol'), project.addTaskForm())
 
         // Add task form
         taskForm = document.createElement('div')
@@ -138,7 +138,7 @@ function addProjects(projects) {
             taskForm.append(formLabel, CreateBR, formInput, CreateBR)
         })
 
-        container.append(taskForm, project.addEditButton(), project.addEditProjectForm())
+        container.append(taskForm,project.addEditButton(), project.addEditProjectForm())
         document.body.append(container)
     }
         )
@@ -217,7 +217,7 @@ class Task {
         let taskContainer = document.createElement('div')
         taskContainer.id = `task${taskID}`
 
-        let taskName = document.createElement('h4')
+        let taskName = document.createElement('li')
         taskName.innerHTML = this.name
         taskName.id = `projectTask${taskID}`
         taskName.addEventListener('click', function(){
@@ -229,7 +229,7 @@ class Task {
         secondContainer.className = "hiddenTaskForm"
 
         taskContainer.append(taskName)
-        taskContainer.querySelector('h4').after(secondContainer)
+        taskContainer.querySelector('li').after(secondContainer)
 
         taskName.addEventListener('click', function(){
             taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "hiddenTaskForm" : taskContainer.querySelector('div div').className = ""
@@ -277,23 +277,9 @@ fetch('http://localhost:3000/tasks')
 
 
 function addTasksToProjects(tasks) {
-    // let taskInput
-    // let label
     tasks.map(function(a) {
         let task = new Task(a.id, a.name, a.project_id, a.status)
-        // id use project#task#
-        // taskInput = document.createElement('input')
-        // taskInput.className = "tasks"
-        // taskInput.id = `task${testTask.id}`
-        // taskInput.type = 'checkbox'
-
-        // label = document.createElement('label')
-        // label.setAttribute("for", `${taskInput.id}`)
-        // label.innerHTML = `${testTask.name}`
-
-        br = document.createElement('br')
-
-        document.getElementById(`project${task.project_id}`).querySelector('h3 + h3').after(task.addTaskOptions())
+        document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
     })
 }
 
