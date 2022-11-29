@@ -247,6 +247,22 @@ class Task {
 
 }
 
+// Fetch tasks and add to page called by Project Fetch
+function getTasks() {
+fetch('http://localhost:3000/tasks')
+.then(resp => resp.json())
+.then(data => addTasksToProjects(data))
+}
+
+
+// Adds task to project on page, calls the Task class
+function addTasksToProjects(tasks) {
+    tasks.map(function(a) {
+        let task = new Task(a.id, a.name, a.project_id, a.status)
+        document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
+    })
+}
+
 // Creates task and posts to db
 function createTask(e) {
     if (e.key === "Enter") {
@@ -267,19 +283,3 @@ function createTask(e) {
         .then(e.composedPath()[0].value = "")
     }
 }
-
-// Fetch tasks and add to page called by Project Fetch
-function getTasks() {
-fetch('http://localhost:3000/tasks')
-.then(resp => resp.json())
-.then(data => addTasksToProjects(data))
-}
-
-
-function addTasksToProjects(tasks) {
-    tasks.map(function(a) {
-        let task = new Task(a.id, a.name, a.project_id, a.status)
-        document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
-    })
-}
-
