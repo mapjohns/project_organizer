@@ -239,9 +239,15 @@ class Task {
         array.map(function(a) {
             let button = document.createElement('button')
             button.innerHTML = a
-            button.id = `${a}Task${taskID}`
+            button.id = `${a.toLocaleLowerCase()}Task${taskID}`
             taskContainer.querySelector('div div').appendChild(button)
         })
+
+        // Add button event listeners
+        document.getElementById(`updateTask${this.id}`).addEventListener('click', updateTask)
+        document.getElementById(`deleteTask${this.id}`).addEventListener('click', deleteTask)
+        document.getElementById(`completeTask${this.id}`).addEventListener('click', completeTask)
+
         return taskContainer
     }
 
@@ -282,4 +288,19 @@ function createTask(e) {
         .then(object => addTasksToProjects([object]))
         .then(e.composedPath()[0].value = "")
     }
+}
+
+// Update Task
+function updateTask(e) {
+
+}
+
+// Delete Task
+function deleteTask(e) {
+
+}
+
+// Complete Task
+function completeTask(e) {
+
 }
