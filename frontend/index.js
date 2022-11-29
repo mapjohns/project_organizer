@@ -212,31 +212,31 @@ class Task {
     }
 
     addTaskOptions() {
+        let taskID = this.id
+
         let taskContainer = document.createElement('div')
-        taskContainer.id = `task${this.id}`
+        taskContainer.id = `task${taskID}`
 
         let taskName = document.createElement('h4')
         taskName.innerHTML = this.name
+        taskName.addEventListener('click', toggleHidden)
+
+        let secondContainer = document.createElement('div')
+
+        taskContainer.append(taskName)
+        taskContainer.querySelector('h4').after(secondContainer)
 
         let array = ["Update", "Delete", "Complete"]
-        array.map(function(action) {
+        array.map(function(a) {
             let button = document.createElement('button')
-            button.innerHTML = action
-            button.id = action
-        
-            taskContainer.appendChild(button)
+            button.innerHTML = a
+            button.id = `${a}Task${taskID}`
+            button.className = "hiddenTaskForm"
+            taskContainer.querySelector('div').appendChild(button)
         })
 
     }
 
-//     let array = ["Update", "Delete", "Complete"]
-// array.map(function(action) {
-//     let button = document.createElement('button')
-//     button.innerHTML = action
-//     button.id = action
-
-//     taskContainer.appendChild(button)
-// }
 }
 
 // Creates task and posts to db
