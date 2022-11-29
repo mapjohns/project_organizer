@@ -210,6 +210,33 @@ class Task {
         this.project_id = project_id
         this.status = status
     }
+
+    addTaskOptions() {
+        let taskContainer = document.createElement('div')
+        taskContainer.id = `task${this.id}`
+
+        let taskName = document.createElement('h4')
+        taskName.innerHTML = this.name
+
+        let array = ["Update", "Delete", "Complete"]
+        array.map(function(action) {
+            let button = document.createElement('button')
+            button.innerHTML = action
+            button.id = action
+        
+            taskContainer.appendChild(button)
+        })
+
+    }
+
+//     let array = ["Update", "Delete", "Complete"]
+// array.map(function(action) {
+//     let button = document.createElement('button')
+//     button.innerHTML = action
+//     button.id = action
+
+//     taskContainer.appendChild(button)
+// }
 }
 
 // Creates task and posts to db
