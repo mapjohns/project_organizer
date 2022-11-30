@@ -224,6 +224,8 @@ class Task {
             taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "" : taskContainer.querySelector('div div').className = "hiddenTaskForm"
         })
 
+        this.status === "Complete" ? taskName.className = "strikeThrough" : taskName.className = ""
+
 
         let secondContainer = document.createElement('div')
         secondContainer.className = "hiddenTaskForm"
