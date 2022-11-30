@@ -307,5 +307,15 @@ function deleteTask(e) {
 
 // Complete Task
 function completeTask(e) {
-
+    let taskId = e.composedPath()[0].id.substring(12)
+    fetch(`http://localhost:3000/tasks/${taskId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            status: "Complete"
+        })
+    })
 }
