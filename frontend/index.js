@@ -301,6 +301,7 @@ function updateTask(e) {
 // Delete Task
 function deleteTask(e) {
     let deleteId = e.composedPath()[0].id.substring(10)
+    e.preventDefault();
     fetch(`http://localhost:3000/tasks/${deleteId}`, {
         method: 'DELETE',
     })
@@ -311,6 +312,7 @@ function deleteTask(e) {
 // Complete Task
 function completeTask(e) {
     let taskId = e.composedPath()[0].id.substring(12)
+    e.preventDefault();
     fetch(`http://localhost:3000/tasks/${taskId}`, {
         method: "PATCH",
         headers: {
