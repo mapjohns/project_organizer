@@ -15,7 +15,7 @@ class Project {
     addTaskForm() {
         let newButton = document.createElement('button')
         newButton.innerHTML = "Add Task"
-        newButton.id = this.id
+        newButton.id = `addTaskP${this.id}`
         newButton.addEventListener('click', toggleHidden)
         return newButton
     }
@@ -79,7 +79,7 @@ class Project {
 
 // Functions to hide forms
 function toggleHidden(e) {
-    let taskForm = document.getElementById(`project${e.composedPath()[0].id}`).querySelector('button + div')
+    let taskForm = document.querySelector(`#${e.composedPath()[0].id} + div`)
     taskForm.className === "" ? taskForm.className = "hiddenTaskForm" : taskForm.className = ""
 }
 
