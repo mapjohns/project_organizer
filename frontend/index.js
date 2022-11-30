@@ -298,7 +298,7 @@ function updateTask() {
 // Delete Task
 function deleteTask(e) {
     let deleteId = e.composedPath()[0].id.substring(10)
-    fetch(`http://localhost:3000/projects/${deleteId}`, {
+    fetch(`http://localhost:3000/tasks/${deleteId}`, {
         method: 'DELETE',
     })
     .then(console.log("SUCCESS"))
