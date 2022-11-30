@@ -244,9 +244,9 @@ class Task {
         })
 
         // Add button event listeners
-        document.getElementById(`updateTask${this.id}`).addEventListener('click', updateTask)
-        document.getElementById(`deleteTask${this.id}`).addEventListener('click', deleteTask)
-        document.getElementById(`completeTask${this.id}`).addEventListener('click', completeTask)
+        taskContainer.querySelector('div div button').addEventListener('click', updateTask)
+        taskContainer.querySelector('div div button + button').addEventListener('click', deleteTask)
+        taskContainer.querySelector('div div button + button + button').addEventListener('click', completeTask)
 
         return taskContainer
     }
@@ -291,13 +291,13 @@ function createTask(e) {
 }
 
 // Update Task
-function updateTask(e) {
+function updateTask() {
 
 }
 
 // Delete Task
 function deleteTask(e) {
-
+    console.log(e.composedPath()[0])
 }
 
 // Complete Task
