@@ -12,6 +12,10 @@ class TasksController < ApplicationController
         render json: task, except: [:created_at, :updated_at]
     end
 
+    def destroy
+        task = Task.find_by(id: params[:id])
+        task.destroy
+    end
     private
 
     def task_params
