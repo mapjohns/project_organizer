@@ -214,29 +214,30 @@ class Task {
     addTaskOptions() {
         let taskID = this.id
 
+        // div to house other elements
         let taskContainer = document.createElement('div')
         taskContainer.id = `task${taskID}`
 
+        // li to display name, adds event listener to hide/unhide button options, and has a boolean to add a className for strikethrough
         let taskName = document.createElement('li')
         taskName.innerHTML = this.name
         taskName.id = `projectTask${taskID}`
         taskName.addEventListener('click', function(){
-            taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "" : taskContainer.querySelector('div div').className = "hiddenTaskForm"
+            taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "hiddenTaskForm" : taskContainer.querySelector('div div').className = ""
         })
 
         this.status === "Complete" ? taskName.className = "strikeThrough" : taskName.className = ""
 
 
+        // div that will hide and house the buttons
         let secondContainer = document.createElement('div')
         secondContainer.className = "hiddenTaskForm"
 
         taskContainer.append(taskName)
         taskContainer.querySelector('li').after(secondContainer)
 
-        taskName.addEventListener('click', function(){
-            taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "hiddenTaskForm" : taskContainer.querySelector('div div').className = ""
-        })
 
+        // Array and function to create and append those 3 buttons to secondContainer div
         let array = ["Update", "Delete", "Complete"]
         array.map(function(a) {
             let button = document.createElement('button')
@@ -293,7 +294,7 @@ function createTask(e) {
 }
 
 // Update Task
-function updateTask() {
+function updateTask(e) {
 
 }
 
