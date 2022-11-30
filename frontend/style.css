@@ -14,3 +14,7 @@ div.projects > h3, h2 {
 .editProject {
     font-style: italic;
 }
+
+.strikeThrough {
+    text-decoration-line: line-through;
+}
