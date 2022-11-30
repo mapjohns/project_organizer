@@ -246,10 +246,22 @@ class Task {
             taskContainer.querySelector('div div').appendChild(button)
         })
 
+        // Add Update Task Form After Update Button
+        let hiddenUpdateForm = document.createElement('div')
+        hiddenUpdateForm.className = "hiddenTaskForm"
+        taskContainer.querySelector('div div button').after(hiddenUpdateForm)
+
+        // Add Name input field to hidden div
+        let taskInput = document.createElement('input')
+        let taskInputLabel = document.createElement('label')
+        taskInputLabel.innerHTML = "Name"
+        taskContainer.querySelector('div div button + div').appendChild(taskInputLabel)
+        taskContainer.querySelector('div div button + div').appendChild(taskInput)
+        
         // Add button event listeners
-        taskContainer.querySelector('div div button').addEventListener('click', updateTask)
-        taskContainer.querySelector('div div button + button').addEventListener('click', deleteTask)
-        taskContainer.querySelector('div div button + button + button').addEventListener('click', completeTask)
+        taskContainer.querySelector('div div button').addEventListener('click', function() {taskContainer.querySelector('div div button + div').className === "" ? taskContainer.querySelector('div div button + div').className = "hiddenTaskForm" : taskContainer.querySelector('div div button + div').className = "" })
+        taskContainer.querySelector('div div button + div + button').addEventListener('click', deleteTask)
+        taskContainer.querySelector('div div button + div + button + button').addEventListener('click', completeTask)
 
         return taskContainer
     }
