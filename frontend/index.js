@@ -318,4 +318,5 @@ function completeTask(e) {
             status: "Complete"
         })
     })
+    .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")
 }
