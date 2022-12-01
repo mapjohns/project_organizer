@@ -29,13 +29,6 @@ class Project {
         return editButton
     }
 
-    addCompleteButton() {
-        let completeButton = document.createElement('button')
-        completeButton.innerHTML = "Complete"
-        completeButton.id = `comProject${this.id}`
-        return addCompleteButton
-    }
-
     addEditProjectForm() {
         let container = document.createElement('div')
         container.id = this.id
@@ -76,10 +69,15 @@ class Project {
         deleteButton.innerHTML = "Delete"
         deleteButton.addEventListener('click', deleteProject)
 
+        // Creates Complete button
+        let completeButton = document.createElement('button')
+        completeButton.innerHTML = "Complete"
+        completeButton.id = `comProject${this.id}`
+
         // Create line break
         let br = document.createElement('br')
 
-        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, br, dueDateInput, br, updateButton, br, deleteButton)
+        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, br, dueDateInput, br, updateButton, br, deleteButton, )
         return container
     }
 }
