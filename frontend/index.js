@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Loaded!")
+    console.log(new Date())
     document.querySelector('input#NewProject').addEventListener('click', createProject)
   });
 
@@ -73,6 +74,7 @@ class Project {
         let completeButton = document.createElement('button')
         completeButton.innerHTML = "Complete"
         completeButton.id = `comProject${this.id}`
+        completeButton.addEventListener('click', completeProject)
 
         // Create line break
         let br = document.createElement('br')
@@ -195,6 +197,24 @@ function updateProject(e) {
         document.getElementById(`project${object.id}`).querySelector('h3').innerHTML = descField.value
         document.getElementById(`project${object.id}`).querySelector('h3 + h3').innerHTML = dateField.value
     })
+}
+
+// Completes Project
+function completeProject(e) {
+    console.log(e.composedPath()[0])
+    fetch(`http://localhost:3000/projects/${e.composedPath()[0].id.substring(10)}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            status: "Complete"
+        })
+    })
+    .then(resp => resp.json())
+    .then(object => console.log(object))
+    .then(console.log("Woo-hoo!"))
 }
 
 // Delete Project
