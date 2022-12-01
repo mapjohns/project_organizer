@@ -309,9 +309,22 @@ function createTask(e) {
 
 // Update Task
 function updateTask(e) {
-    if (e.key === "enter") {
+    let updateId = e.composedPath()[0].id
+    if (e.key === "Enter") {
+        fetch(`http://localhost:3000/tasks/${updateId.substring(19)}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(
+                {name: e.composedPath()[0].value}
+            )
+        })
+        .then(resp => resp.json())
+        .then(object => console.log(object))
     }
-    console.log(e.composedPath()[0].id)
+    // console.log(e.composedPath()[0].id)
 }
 
 // Delete Task
