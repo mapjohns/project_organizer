@@ -29,6 +29,13 @@ class Project {
         return editButton
     }
 
+    addCompleteButton() {
+        let completeButton = document.createElement('button')
+        completeButton.innerHTML = "Complete"
+        completeButton.id = `comProject${this.id}`
+        return addCompleteButton
+    }
+
     addEditProjectForm() {
         let container = document.createElement('div')
         container.id = this.id
@@ -327,7 +334,6 @@ function updateTask(e) {
         .then(updateValue.value = "")
         .then(console.log("Success!"))
     }
-    // console.log(e.composedPath()[0].id)
 }
 
 // Delete Task
