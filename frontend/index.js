@@ -254,6 +254,8 @@ class Task {
         // Add Name input field to hidden div
         let taskInput = document.createElement('input')
         let taskInputLabel = document.createElement('label')
+        taskInput.id = `updateTaskNameField${this.id}`
+        taskInput.addEventListener("keydown", updateTask)
         taskInputLabel.innerHTML = "Name"
         taskContainer.querySelector('div div button + div').appendChild(taskInputLabel)
         taskContainer.querySelector('div div button + div').appendChild(taskInput)
@@ -307,7 +309,9 @@ function createTask(e) {
 
 // Update Task
 function updateTask(e) {
-
+    if (e.key === "enter") {
+    }
+    console.log(e.composedPath()[0].id)
 }
 
 // Delete Task
