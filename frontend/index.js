@@ -219,6 +219,7 @@ function completeProject(e) {
     .then(resp => resp.json())
     .then(object => console.log(object))
 }
+}
 
 // Delete Project
 function deleteProject(e) {
@@ -382,5 +383,5 @@ function completeTask(e) {
             status: "Complete"
         })
     })
-    .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")}
+    .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")
 }
