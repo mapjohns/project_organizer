@@ -18,11 +18,8 @@ class ProjectsController < ApplicationController
 
     def update
         project = Project.find_by(id: params[:id])
-        if project.update(project_params)
+        project.update(project_params)
         render json: project, except: [:created_at, :updated_at]
-        else
-            render json: project.errors
-        end
     end
 
     def destroy
