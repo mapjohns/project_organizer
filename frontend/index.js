@@ -202,6 +202,10 @@ function updateProject(e) {
 // Completes Project
 function completeProject(e) {
     console.log(e.composedPath()[0])
+    if(!!e.composedPath()[2].querySelector('.incompleteTask')) {
+        alert("All tasks have not been completed for this project!")
+    }
+    else {
     fetch(`http://localhost:3000/projects/${e.composedPath()[0].id.substring(10)}`, {
         method: "PATCH",
         headers: {
@@ -214,7 +218,6 @@ function completeProject(e) {
     })
     .then(resp => resp.json())
     .then(object => console.log(object))
-    .then(console.log("Woo-hoo!"))
 }
 
 // Delete Project
@@ -251,7 +254,7 @@ class Task {
             taskContainer.querySelector('div div').className === "" ? taskContainer.querySelector('div div').className = "hiddenTaskForm" : taskContainer.querySelector('div div').className = ""
         })
 
-        this.status === "Complete" ? taskName.className = "strikeThrough" : taskName.className = ""
+        this.status === "Complete" ? taskName.className = "strikeThrough" : taskName.className = "incompleteTask"
 
 
         // div that will hide and house the buttons
@@ -379,5 +382,5 @@ function completeTask(e) {
             status: "Complete"
         })
     })
-    .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")
+    .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")}
 }
