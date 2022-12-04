@@ -80,7 +80,7 @@ class Project {
         // Create line break
         let br = document.createElement('br')
 
-        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, br, dueDateInput, br, updateButton, br, deleteButton, completeButton)
+        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, dueDateInput, updateButton, deleteButton, completeButton)
         return container
     }
 }
@@ -203,6 +203,7 @@ function updateProject(e) {
 
 // Completes Project
 function completeProject(e) {
+    let projectClass = `project${e.composedPath()[0].id.substring(10)}`
     console.log(e.composedPath()[0])
     if(!!e.composedPath()[2].querySelector('.incompleteTask')) {
         alert("All tasks have not been completed for this project!")
@@ -219,7 +220,8 @@ function completeProject(e) {
         })
     })
     .then(resp => resp.json())
-    .then(object => console.log(object))
+    .then(object => document.querySelector(`#${projectClass}`).classList.replace(document.querySelector(`#${projectClass}`).classList[1], `${object.status.toLocaleLowerCase()}Project`))
+    .then(console.log("Success!"))
 }
 }
 
