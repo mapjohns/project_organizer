@@ -6,11 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Project class
 class Project {
-    constructor(id, name, description, due_date) {
+    constructor(id, name, description, due_date, status) {
         this.id = id
         this.name = name
         this.description = description
         this.due_date = due_date
+        this.status = status
     }
 
     addTaskForm() {
@@ -107,9 +108,10 @@ function addProjects(projects) {
     let container
 
     projects.map(function(a) {
-        let project = new Project(a.id, a.name, a.description, a.due_date)
+        let project = new Project(a.id, a.name, a.description, a.due_date, a.status)
         container = document.createElement('div')
         container.className = "projects"
+        container.classList.add(`${a.status.toLocaleLowerCase()}Project`)
         container.id = `project${project.id}`
 
         // Add project name
