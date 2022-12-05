@@ -132,7 +132,6 @@ function addProjects(projects) {
         // Add task form
         taskForm = document.createElement('div')
         taskForm.className = "hiddenTaskForm"
-        // let taskArray = ['name']
         let addTaskForm = document.createElement('form')
 
         let taskFormLabel = document.createElement('label')
@@ -284,13 +283,17 @@ class Task {
         taskContainer.querySelector('div div button').after(hiddenUpdateForm)
 
         // Add Name input field to hidden div
+        let taskUpdateForm = document.createElement('form')
         let taskInput = document.createElement('input')
         let taskInputLabel = document.createElement('label')
         taskInput.id = `updateTaskNameField${this.id}`
         taskInput.addEventListener("keydown", updateTask)
         taskInputLabel.innerHTML = "Name"
-        taskContainer.querySelector('div div button + div').appendChild(taskInputLabel)
-        taskContainer.querySelector('div div button + div').appendChild(taskInput)
+
+        taskUpdateForm.append(taskInputLabel)
+        taskUpdateForm.lastChild.after(taskInput)
+
+        taskContainer.querySelector('div div button + div').appendChild(taskUpdateForm)
         
         // Add button event listeners
         taskContainer.querySelector('div div button').addEventListener('click', function() {taskContainer.querySelector('div div button + div').className === "" ? taskContainer.querySelector('div div button + div').className = "hiddenTaskForm" : taskContainer.querySelector('div div button + div').className = "" })
@@ -344,6 +347,7 @@ function updateTask(e) {
     let updateId = e.composedPath()[0].id
     let updateValue = e.composedPath()[0]
     if (e.key === "Enter") {
+        e.preventDefault()
         fetch(`http://localhost:3000/tasks/${updateId.substring(19)}`, {
             method: "PATCH",
             headers: {
