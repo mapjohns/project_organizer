@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('input#NewProject').addEventListener('click', createProject)
   });
 
+let projects = []
 // Project class
 class Project {
     constructor(id, name, description, due_date, status) {
@@ -12,6 +13,57 @@ class Project {
         this.description = description
         this.due_date = due_date
         this.status = status
+    }
+
+    static addProjectsToDOM(project) {
+        let addProject
+        let container
+        container = document.createElement('div')
+        container.className = "projects"
+        container.classList.add(`${project.status.toLocaleLowerCase()}Project`)
+        container.id = `project${project.id}`
+
+        // Add project name
+        addProject = document.createElement('h2')
+        addProject.innerHTML = project.name
+        container.append(addProject)
+
+        // Add project description
+        addProject = document.createElement('h3')
+        addProject.innerHTML = project.description
+        container.append(addProject)
+
+        // Add due date
+        addProject = document.createElement('h3')
+        addProject.innerHTML = `Due: ${new Date(project.due_date).toLocaleDateString()}`
+        container.append(addProject,  document.createElement('ol'), project.addTaskForm())
+
+        // Add task form
+        let taskForm = document.createElement('div')
+        taskForm.className = "hiddenTaskForm"
+        let addTaskForm = document.createElement('form')
+
+        let taskFormLabel = document.createElement('label')
+        taskFormLabel.innerHTML = "Name"
+
+        let taskFormInput = document.createElement('input')
+        taskFormInput.addEventListener("keydown", createTask)
+
+        addTaskForm.append(taskFormLabel)
+        addTaskForm.querySelector('label').after(taskFormInput)
+
+        taskForm.append(addTaskForm)
+
+        container.append(taskForm,project.addEditButton(), project.addEditProjectForm())
+        document.body.append(container)
+    }
+
+    bark() {
+        console.log("WOOF!")
+    }
+
+    static addProjectToProjects(a) {
+        projects.push(a)
     }
 
     addTaskForm() {
@@ -105,49 +157,11 @@ fetch('http://localhost:3000/projects')
 
 // Called by projects fetch, will add projects to the page
 function addProjects(projects) {
-    let addProject
-    let container
-
     projects.map(function(a) {
         let project = new Project(a.id, a.name, a.description, a.due_date, a.status)
-        container = document.createElement('div')
-        container.className = "projects"
-        container.classList.add(`${a.status.toLocaleLowerCase()}Project`)
-        container.id = `project${project.id}`
-
-        // Add project name
-        addProject = document.createElement('h2')
-        addProject.innerHTML = project.name
-        container.append(addProject)
-
-        // Add project description
-        addProject = document.createElement('h3')
-        addProject.innerHTML = project.description
-        container.append(addProject)
-
-        // Add due date
-        addProject = document.createElement('h3')
-        addProject.innerHTML = `Due: ${new Date(project.due_date).toLocaleDateString()}`
-        container.append(addProject,  document.createElement('ol'), project.addTaskForm())
-
-        // Add task form
-        taskForm = document.createElement('div')
-        taskForm.className = "hiddenTaskForm"
-        let addTaskForm = document.createElement('form')
-
-        let taskFormLabel = document.createElement('label')
-        taskFormLabel.innerHTML = "Name"
-
-        let taskFormInput = document.createElement('input')
-        taskFormInput.addEventListener("keydown", createTask)
-
-        addTaskForm.append(taskFormLabel)
-        addTaskForm.querySelector('label').after(taskFormInput)
-
-        taskForm.append(addTaskForm)
-
-        container.append(taskForm,project.addEditButton(), project.addEditProjectForm())
-        document.body.append(container)
+        // Runs class method to add project to DOM
+        Project.addProjectToProjects(project)
+        Project.addProjectsToDOM(project)
     }
         )
 }
