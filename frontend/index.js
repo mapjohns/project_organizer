@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Loaded!")
     console.log(new Date())
-    document.querySelector('input#NewProject').addEventListener('click', createProject)
+    document.querySelector('input#NewProject').addEventListener('click', Project.createProject)
   });
 
 let projects = []
@@ -13,6 +13,26 @@ class Project {
         this.description = description
         this.due_date = due_date
         this.status = status
+    }
+
+    // Creates project on submit
+    static createProject(e) {
+        e.preventDefault();
+        fetch('http://localhost:3000/projects', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: document.querySelector('input#nameField').value,
+                        description: document.querySelector('input#descField').value,
+                        due_date: new Date(document.querySelector('input#dateField').value)
+                    }) 
+                })
+                .then(resp => resp.json())
+                .then(object => addProjects([object]))
+                .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
     }
 
     static addProjectsToDOM(project) {
@@ -167,24 +187,24 @@ function addProjects(projects) {
 }
 
 // Creates project on submit
-function createProject(e) {
-    e.preventDefault();
-    fetch('http://localhost:3000/projects', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify({
-                    name: document.querySelector('input#nameField').value,
-                    description: document.querySelector('input#descField').value,
-                    due_date: new Date(document.querySelector('input#dateField').value)
-                }) 
-            })
-            .then(resp => resp.json())
-            .then(object => addProjects([object]))
-            .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
-}
+// function createProject(e) {
+//     e.preventDefault();
+//     fetch('http://localhost:3000/projects', {
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                     "Accept": "application/json"
+//                 },
+//                 body: JSON.stringify({
+//                     name: document.querySelector('input#nameField').value,
+//                     description: document.querySelector('input#descField').value,
+//                     due_date: new Date(document.querySelector('input#dateField').value)
+//                 }) 
+//             })
+//             .then(resp => resp.json())
+//             .then(object => addProjects([object]))
+//             .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
+// }
 
 // Update Project
 function updateProject(e) {
