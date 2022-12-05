@@ -204,10 +204,11 @@ function updateProject(e) {
 function completeProject(e) {
     let projectClass = `project${e.composedPath()[0].id.substring(10)}`
     console.log(e.composedPath()[0])
-    if(!!e.composedPath()[2].querySelector('.incompleteTask')) {
+    if(!!e.composedPath()[3].querySelector('.incompleteTask')) {
         alert("All tasks have not been completed for this project!")
     }
     else {
+        e.preventDefault()
     fetch(`http://localhost:3000/projects/${e.composedPath()[0].id.substring(10)}`, {
         method: "PATCH",
         headers: {
