@@ -132,20 +132,19 @@ function addProjects(projects) {
         // Add task form
         taskForm = document.createElement('div')
         taskForm.className = "hiddenTaskForm"
-        let taskArray = ['name']
+        // let taskArray = ['name']
+        let addTaskForm = document.createElement('form')
 
-        taskArray.map(function(a) {
-            let formLabel = document.createElement('label')
-            formLabel.innerHTML = `${a}`
+        let taskFormLabel = document.createElement('label')
+        taskFormLabel.innerHTML = "Name"
 
-            let CreateBR = document.createElement('br')
+        let taskFormInput = document.createElement('input')
+        taskFormInput.addEventListener("keydown", createTask)
 
-            let formInput = document.createElement('input')
-            formInput.addEventListener("keydown", createTask)
-            formInput.className = `${a}Field`
+        addTaskForm.append(taskFormLabel)
+        addTaskForm.querySelector('label').after(taskFormInput)
 
-            taskForm.append(formLabel, CreateBR, formInput, CreateBR)
-        })
+        taskForm.append(addTaskForm)
 
         container.append(taskForm,project.addEditButton(), project.addEditProjectForm())
         document.body.append(container)
@@ -331,7 +330,7 @@ function createTask(e) {
             },
             body: JSON.stringify({
                 name: e.composedPath()[0].value,
-                project_id: e.composedPath()[2].id.slice(7)
+                project_id: e.composedPath()[3].id.slice(7)
             })
         })
         .then(resp => resp.json())
