@@ -80,7 +80,8 @@ class Project {
         // Create line break
         let br = document.createElement('br')
 
-        container.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, dueDateInput, updateButton, deleteButton, completeButton)
+        container.append(document.createElement('form'))
+        container.firstChild.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, dueDateInput, updateButton, deleteButton, completeButton)
         return container
     }
 }
@@ -173,7 +174,7 @@ function createProject(e) {
 
 // Update Project
 function updateProject(e) {
-    let projectID = e.composedPath()[2].id.substring(7)
+    let projectID = e.composedPath()[3].id.substring(7)
     let nameField = document.getElementById(`updateName${projectID}`)
     let descField = document.getElementById(`updateDescription${projectID}`)
     let dateField = document.getElementById(`updateDate${projectID}`)
