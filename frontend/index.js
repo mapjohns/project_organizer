@@ -227,12 +227,13 @@ function completeProject(e) {
 
 // Delete Project
 function deleteProject(e) {
-    deleteID = e.composedPath()[2].id.substring(7)
+    deleteID = e.composedPath()[3].id.substring(7)
+    e.preventDefault()
     fetch(`http://localhost:3000/projects/${deleteID}`, {
         method: 'DELETE',
     })
     .then(console.log("SUCCESS"))
-    .then(document.getElementById(e.composedPath()[2].id).remove())
+    .then(document.getElementById(e.composedPath()[3].id).remove())
 }
 
 // Task class
