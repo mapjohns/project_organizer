@@ -307,6 +307,34 @@ class Task {
         }
     }
 
+    // Deletes Task
+    deleteTask(e) {
+        let deleteId = e.composedPath()[0].id.substring(10)
+        e.preventDefault();
+        fetch(`http://localhost:3000/tasks/${deleteId}`, {
+            method: 'DELETE',
+        })
+        .then(console.log("SUCCESS"))
+        .then(document.getElementById(e.composedPath()[2].id).remove())
+    }
+
+    // Completes Project
+    completeTask(e) {
+        let taskId = e.composedPath()[0].id.substring(12)
+        e.preventDefault();
+        fetch(`http://localhost:3000/tasks/${taskId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                status: "Complete"
+            })
+        })
+        .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")
+    }
+
     addTaskOptions() {
         let taskID = this.id
 
@@ -362,8 +390,8 @@ class Task {
         
         // Add button event listeners
         taskContainer.querySelector('div div button').addEventListener('click', function() {taskContainer.querySelector('div div button + div').className === "" ? taskContainer.querySelector('div div button + div').className = "hiddenTaskForm" : taskContainer.querySelector('div div button + div').className = "" })
-        taskContainer.querySelector('div div button + div + button').addEventListener('click', deleteTask)
-        taskContainer.querySelector('div div button + div + button + button').addEventListener('click', completeTask)
+        taskContainer.querySelector('div div button + div + button').addEventListener('click', this.deleteTask)
+        taskContainer.querySelector('div div button + div + button + button').addEventListener('click', this.completeTask)
 
         return taskContainer
     }
@@ -384,56 +412,4 @@ function addTasksToProjects(tasks) {
         let task = new Task(a.id, a.name, a.project_id, a.status)
         document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
     })
-}
-
-
-// Update Task
-// function updateTask(e) {
-//     let updateId = e.composedPath()[0].id
-//     let updateValue = e.composedPath()[0]
-//     if (e.key === "Enter") {
-//         e.preventDefault()
-//         fetch(`http://localhost:3000/tasks/${updateId.substring(19)}`, {
-//             method: "PATCH",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "Accept": "application/json"
-//             },
-//             body: JSON.stringify(
-//                 {name: updateValue.value}
-//             )
-//         })
-//         .then(resp => resp.json())
-//         .then(object => document.querySelector(`#projectTask${updateId.substring(19)}`).innerHTML = object.name)
-//         .then(updateValue.value = "")
-//         .then(console.log("Success!"))
-//     }
-// }
-
-// Delete Task
-function deleteTask(e) {
-    let deleteId = e.composedPath()[0].id.substring(10)
-    e.preventDefault();
-    fetch(`http://localhost:3000/tasks/${deleteId}`, {
-        method: 'DELETE',
-    })
-    .then(console.log("SUCCESS"))
-    .then(document.getElementById(e.composedPath()[2].id).remove())
-}
-
-// Complete Task
-function completeTask(e) {
-    let taskId = e.composedPath()[0].id.substring(12)
-    e.preventDefault();
-    fetch(`http://localhost:3000/tasks/${taskId}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            status: "Complete"
-        })
-    })
-    .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")
 }
