@@ -91,6 +91,17 @@ class Project {
     }
     }
 
+    // Deletes project
+    deleteProject(e) {
+        let deleteID = e.composedPath()[2].id.substring(7)
+        e.preventDefault()
+        fetch(`http://localhost:3000/projects/${deleteID}`, {
+            method: 'DELETE',
+        })
+        .then(console.log("SUCCESS"))
+        .then(document.getElementById(e.composedPath()[2].id).remove())
+    }
+
     static addProjectsToDOM(project) {
         let addProject
         let container
@@ -197,7 +208,7 @@ class Project {
         // Creates Delete button and then adds eventlistener to call deleteProject
         let deleteButton = document.createElement('button')
         deleteButton.innerHTML = "Delete"
-        deleteButton.addEventListener('click', deleteProject)
+        deleteButton.addEventListener('click', this.deleteProject)
 
         // Creates Complete button
         let completeButton = document.createElement('button')
@@ -209,7 +220,8 @@ class Project {
         let br = document.createElement('br')
 
         container.append(document.createElement('form'))
-        container.firstChild.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, dueDateInput, updateButton, deleteButton, completeButton)
+        container.firstChild.append(nameLabel, br, nameInput, br, descriptionLabel, br, descriptionInput, br, dueDateLabel, dueDateInput, updateButton, completeButton)
+        container.append(deleteButton)
         return container
     }
 }
@@ -242,41 +254,6 @@ function addProjects(projects) {
         )
 }
 
-// Completes Project
-function completeProject(e) {
-    let projectClass = `project${e.composedPath()[0].id.substring(10)}`
-    console.log(e.composedPath()[0])
-    if(!!e.composedPath()[3].querySelector('.incompleteTask')) {
-        alert("All tasks have not been completed for this project!")
-    }
-    else {
-        e.preventDefault()
-    fetch(`http://localhost:3000/projects/${e.composedPath()[0].id.substring(10)}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            status: "Complete"
-        })
-    })
-    .then(resp => resp.json())
-    .then(object => document.querySelector(`#${projectClass}`).classList.replace(document.querySelector(`#${projectClass}`).classList[1], `${object.status.toLocaleLowerCase()}Project`))
-    .then(console.log("Success!"))
-}
-}
-
-// Delete Project
-function deleteProject(e) {
-    deleteID = e.composedPath()[3].id.substring(7)
-    e.preventDefault()
-    fetch(`http://localhost:3000/projects/${deleteID}`, {
-        method: 'DELETE',
-    })
-    .then(console.log("SUCCESS"))
-    .then(document.getElementById(e.composedPath()[3].id).remove())
-}
 
 // Task class
 class Task {
