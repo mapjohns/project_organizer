@@ -284,6 +284,29 @@ class Task {
         }
     }
 
+    // Updates Task
+    updateTask(e) {
+        let updateId = e.composedPath()[0].id
+        let updateValue = e.composedPath()[0]
+        if (e.key === "Enter") {
+            e.preventDefault()
+            fetch(`http://localhost:3000/tasks/${updateId.substring(19)}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(
+                    {name: updateValue.value}
+                )
+            })
+            .then(resp => resp.json())
+            .then(object => document.querySelector(`#projectTask${updateId.substring(19)}`).innerHTML = object.name)
+            .then(updateValue.value = "")
+            .then(console.log("Success!"))
+        }
+    }
+
     addTaskOptions() {
         let taskID = this.id
 
@@ -329,7 +352,7 @@ class Task {
         let taskInput = document.createElement('input')
         let taskInputLabel = document.createElement('label')
         taskInput.id = `updateTaskNameField${this.id}`
-        taskInput.addEventListener("keydown", updateTask)
+        taskInput.addEventListener("keydown", this.updateTask)
         taskInputLabel.innerHTML = "Name"
 
         taskUpdateForm.append(taskInputLabel)
@@ -365,27 +388,27 @@ function addTasksToProjects(tasks) {
 
 
 // Update Task
-function updateTask(e) {
-    let updateId = e.composedPath()[0].id
-    let updateValue = e.composedPath()[0]
-    if (e.key === "Enter") {
-        e.preventDefault()
-        fetch(`http://localhost:3000/tasks/${updateId.substring(19)}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(
-                {name: updateValue.value}
-            )
-        })
-        .then(resp => resp.json())
-        .then(object => document.querySelector(`#projectTask${updateId.substring(19)}`).innerHTML = object.name)
-        .then(updateValue.value = "")
-        .then(console.log("Success!"))
-    }
-}
+// function updateTask(e) {
+//     let updateId = e.composedPath()[0].id
+//     let updateValue = e.composedPath()[0]
+//     if (e.key === "Enter") {
+//         e.preventDefault()
+//         fetch(`http://localhost:3000/tasks/${updateId.substring(19)}`, {
+//             method: "PATCH",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "Accept": "application/json"
+//             },
+//             body: JSON.stringify(
+//                 {name: updateValue.value}
+//             )
+//         })
+//         .then(resp => resp.json())
+//         .then(object => document.querySelector(`#projectTask${updateId.substring(19)}`).innerHTML = object.name)
+//         .then(updateValue.value = "")
+//         .then(console.log("Success!"))
+//     }
+// }
 
 // Delete Task
 function deleteTask(e) {
