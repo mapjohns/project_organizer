@@ -134,7 +134,7 @@ class Project {
         taskFormLabel.innerHTML = "Name"
 
         let taskFormInput = document.createElement('input')
-        taskFormInput.addEventListener("keydown", createTask)
+        taskFormInput.addEventListener("keydown", Task.createTask)
 
         addTaskForm.append(taskFormLabel)
         addTaskForm.querySelector('label').after(taskFormInput)
@@ -264,6 +264,26 @@ class Task {
         this.status = status
     }
 
+    static createTask(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            fetch('http://localhost:3000/tasks', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    name: e.composedPath()[0].value,
+                    project_id: e.composedPath()[3].id.slice(7)
+                })
+            })
+            .then(resp => resp.json())
+            .then(object => addTasksToProjects([object]))
+            .then(e.composedPath()[0].value = "")
+        }
+    }
+
     addTaskOptions() {
         let taskID = this.id
 
@@ -343,26 +363,6 @@ function addTasksToProjects(tasks) {
     })
 }
 
-// Creates task and posts to db
-function createTask(e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        fetch('http://localhost:3000/tasks', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                name: e.composedPath()[0].value,
-                project_id: e.composedPath()[3].id.slice(7)
-            })
-        })
-        .then(resp => resp.json())
-        .then(object => addTasksToProjects([object]))
-        .then(e.composedPath()[0].value = "")
-    }
-}
 
 // Update Task
 function updateTask(e) {
