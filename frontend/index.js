@@ -35,6 +35,36 @@ class Project {
                 .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
     }
 
+    // Updates Project
+    updateProject(e) {
+        e.preventDefault()
+        console.log(e)
+        let projectID = e.composedPath()[3].id.substring(7)
+        let nameField = document.getElementById(`updateName${projectID}`)
+        let descField = document.getElementById(`updateDescription${projectID}`)
+        let dateField = document.getElementById(`updateDate${projectID}`)
+    
+        e.preventDefault();
+        fetch(`http://localhost:3000/projects/${projectID}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                name: nameField.value,
+                description: descField.value,
+                due_date: new Date(dateField.value)
+            })
+        })
+        .then(resp => resp.json())
+        .then(function(object) {
+            document.getElementById(`project${object.id}`).querySelector('h2').innerHTML = object.name
+            document.getElementById(`project${object.id}`).querySelector('h3').innerHTML = descField.value
+            document.getElementById(`project${object.id}`).querySelector('h3 + h3').innerHTML = `Due: ${dateField.value}`
+        })
+    }
+
     static addProjectsToDOM(project) {
         let addProject
         let container
@@ -136,7 +166,7 @@ class Project {
         // Creates Update button and then adds eventlistener to call updateProject
         let updateButton = document.createElement('button')
         updateButton.innerHTML = "Update"
-        updateButton.addEventListener('click', updateProject)
+        updateButton.addEventListener('click', this.updateProject)
 
         // Creates Delete button and then adds eventlistener to call deleteProject
         let deleteButton = document.createElement('button')
@@ -184,54 +214,6 @@ function addProjects(projects) {
         Project.addProjectsToDOM(project)
     }
         )
-}
-
-// Creates project on submit
-// function createProject(e) {
-//     e.preventDefault();
-//     fetch('http://localhost:3000/projects', {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                     "Accept": "application/json"
-//                 },
-//                 body: JSON.stringify({
-//                     name: document.querySelector('input#nameField').value,
-//                     description: document.querySelector('input#descField').value,
-//                     due_date: new Date(document.querySelector('input#dateField').value)
-//                 }) 
-//             })
-//             .then(resp => resp.json())
-//             .then(object => addProjects([object]))
-//             .then(Array.from(document.querySelectorAll('.newProjectForm')).map(a => a.value = ""))
-// }
-
-// Update Project
-function updateProject(e) {
-    let projectID = e.composedPath()[3].id.substring(7)
-    let nameField = document.getElementById(`updateName${projectID}`)
-    let descField = document.getElementById(`updateDescription${projectID}`)
-    let dateField = document.getElementById(`updateDate${projectID}`)
-
-    e.preventDefault();
-    fetch(`http://localhost:3000/projects/${projectID}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            name: nameField.value,
-            description: descField.value,
-            due_date: new Date(dateField.value)
-        })
-    })
-    .then(resp => resp.json())
-    .then(function(object) {
-        document.getElementById(`project${object.id}`).querySelector('h2').innerHTML = object.name
-        document.getElementById(`project${object.id}`).querySelector('h3').innerHTML = descField.value
-        document.getElementById(`project${object.id}`).querySelector('h3 + h3').innerHTML = `Due: ${dateField.value}`
-    })
 }
 
 // Completes Project
