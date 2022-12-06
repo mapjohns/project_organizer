@@ -65,6 +65,32 @@ class Project {
         })
     }
 
+    // Completes Project
+    completeProject(e) {
+        let projectClass = `project${e.composedPath()[0].id.substring(10)}`
+        console.log(e.composedPath()[0])
+        if(!!e.composedPath()[3].querySelector('.incompleteTask')) {
+            e.preventDefault()
+            alert("All tasks have not been completed for this project!")
+        }
+        else {
+            e.preventDefault()
+        fetch(`http://localhost:3000/projects/${e.composedPath()[0].id.substring(10)}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                status: "Complete"
+            })
+        })
+        .then(resp => resp.json())
+        .then(object => document.querySelector(`#${projectClass}`).classList.replace(document.querySelector(`#${projectClass}`).classList[1], `${object.status.toLocaleLowerCase()}Project`))
+        .then(console.log("Success!"))
+    }
+    }
+
     static addProjectsToDOM(project) {
         let addProject
         let container
@@ -177,7 +203,7 @@ class Project {
         let completeButton = document.createElement('button')
         completeButton.innerHTML = "Complete"
         completeButton.id = `comProject${this.id}`
-        completeButton.addEventListener('click', completeProject)
+        completeButton.addEventListener('click', this.completeProject)
 
         // Create line break
         let br = document.createElement('br')
