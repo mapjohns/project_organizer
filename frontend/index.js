@@ -141,19 +141,6 @@ class Project {
 
         taskForm.append(addTaskForm)
         container.append(taskForm,project.addEditButton(), project.addEditProjectForm())
-
-        // switch(expr) {
-        //     case !!document.querySelector('#ProjectForm + div'):
-        //         document.body.append(container)
-        //         break;
-        //     case project.status === "Incomplete":
-
-
-
-        // }
-
-        // !!document.querySelector('#ProjectForm + div')
-        // container.append(taskForm,project.addEditButton(), project.addEditProjectForm())
         document.body.append(container)
     }
 
@@ -435,3 +422,19 @@ function addTasksToProjects(tasks) {
 
 
 // Sort Complete and Incomplete
+function sortProjectsByStatus() {
+    Array.from(document.querySelectorAll(".projects")).map(a => a.remove())
+    projects.sort((a, b) => {
+        const statusA = a.status
+        const statusB = b.status
+        if (statusA > statusB) {
+            return -1;
+        }
+        if (statusA < statusB) {
+            return 1;
+        }
+        return 0
+    })
+    projects.map(a => Project.addProjectsToDOM(a))
+    addTasksToProjects(tasks)
+}
