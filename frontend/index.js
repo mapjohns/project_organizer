@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Loaded!")
     console.log(new Date())
     document.querySelector('input#NewProject').addEventListener('click', Project.createProject)
+    document.querySelector('button#statusSort').addEventListener('click', sortProjectsByStatus)
   });
 
 let projects = []
@@ -421,14 +422,9 @@ function addTasksToProjects(tasks) {
         let task = new Task(a.id, a.name, a.project_id, a.status)
         Task.addTaskToTasks(task)
         Task.addTasksToDOM(task)
-        // addTasksToDOM(task)
-        // document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
-    })
+})
 }
 
-// function addTasksToDOM(task) {
-//     document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
-// }
 
 
 // Sort Complete and Incomplete
