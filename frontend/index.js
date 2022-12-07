@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(new Date())
     document.querySelector('input#NewProject').addEventListener('click', Project.createProject)
     document.querySelector('button#statusSort').addEventListener('click', sortProjectsByStatus)
+    document.querySelector('button#dueDateSort').addEventListener('click', sortProjectsByDueDate)
   });
 
 let projects = []
@@ -428,7 +429,7 @@ function addTasksToProjects(tasks) {
 
 
 // Sort Complete and Incomplete
-function sortProjectsByStatus() {
+function sortProjectsByStatus(e) {
     Array.from(document.querySelectorAll(".projects")).map(a => a.remove())
     projects.sort((a, b) => {
         const statusA = a.status
@@ -437,6 +438,24 @@ function sortProjectsByStatus() {
             return -1;
         }
         if (statusA < statusB) {
+            return 1;
+        }
+        return 0
+    })
+    projects.map(a => Project.addProjectsToDOM(a))
+    tasks.map(a => Task.addTasksToDOM(a))
+}
+
+// Sort Due Date
+function sortProjectsByDueDate() {
+    Array.from(document.querySelectorAll(".projects")).map(a => a.remove())
+    projects.sort((a, b) => {
+        const statusA = a.due_date
+        const statusB = b.due_date
+        if (statusA < statusB) {
+            return -1;
+        }
+        if (statusA > statusB) {
             return 1;
         }
         return 0
