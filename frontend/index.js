@@ -416,8 +416,13 @@ function addTasksToProjects(tasks) {
     tasks.map(function(a) {
         let task = new Task(a.id, a.name, a.project_id, a.status)
         Task.addTaskToTasks(task)
-        document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
+        addTasksToDOM(task)
+        // document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
     })
+}
+
+function addTasksToDOM(task) {
+    document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
 }
 
 
@@ -436,5 +441,5 @@ function sortProjectsByStatus() {
         return 0
     })
     projects.map(a => Project.addProjectsToDOM(a))
-    addTasksToProjects(tasks)
+    tasks.map(a => addTasksToDOM(a))
 }
