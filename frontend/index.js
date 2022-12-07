@@ -140,8 +140,20 @@ class Project {
         addTaskForm.querySelector('label').after(taskFormInput)
 
         taskForm.append(addTaskForm)
-
         container.append(taskForm,project.addEditButton(), project.addEditProjectForm())
+
+        // switch(expr) {
+        //     case !!document.querySelector('#ProjectForm + div'):
+        //         document.body.append(container)
+        //         break;
+        //     case project.status === "Incomplete":
+
+
+
+        // }
+
+        // !!document.querySelector('#ProjectForm + div')
+        // container.append(taskForm,project.addEditButton(), project.addEditProjectForm())
         document.body.append(container)
     }
 
@@ -255,6 +267,8 @@ function addProjects(projects) {
 }
 
 
+let tasks = []
+
 // Task class
 class Task {
     constructor(id, name, project_id, status) {
@@ -335,6 +349,10 @@ class Task {
         .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")
     }
 
+    static addTaskToTasks(a) {
+        tasks.push(a)
+    }
+
     addTaskOptions() {
         let taskID = this.id
 
@@ -410,6 +428,10 @@ fetch('http://localhost:3000/tasks')
 function addTasksToProjects(tasks) {
     tasks.map(function(a) {
         let task = new Task(a.id, a.name, a.project_id, a.status)
+        Task.addTaskToTasks(task)
         document.getElementById(`project${task.project_id}`).querySelector('h3 + h3 + ol').append(task.addTaskOptions())
     })
 }
+
+
+// Sort Complete and Incomplete
