@@ -305,6 +305,8 @@ class Task {
             })
             .then(resp => resp.json())
             .then(object => document.querySelector(`#projectTask${updateId.substring(19)}`).innerHTML = object.name)
+            // Updates the tasks array
+            .then(result => tasks[findTaskIndex(parseInt(updateId.substring(19)))].name = result)
             .then(updateValue.value = "")
             .then(console.log("Success!"))
         }
