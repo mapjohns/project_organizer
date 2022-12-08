@@ -257,7 +257,7 @@ function addProjects(projects) {
 
 
 let tasks = []
-
+let taskDOM
 // Task class
 class Task {
     constructor(id, name, project_id, status) {
@@ -312,6 +312,8 @@ class Task {
 
     // Deletes Task
     deleteTask(e) {
+
+        // Delete from db
         let deleteId = e.composedPath()[0].id.substring(10)
         e.preventDefault();
         fetch(`http://localhost:3000/tasks/${deleteId}`, {
@@ -319,6 +321,12 @@ class Task {
         })
         .then(console.log("SUCCESS"))
         .then(document.getElementById(e.composedPath()[2].id).remove())
+
+        // Delete from tasks array
+        taskDOM = tasks.find(({id}) => id === parseInt(e.composedPath()[0].id.substring(10), 10))
+        let delTaskDOM = tasks.indexOf(taskDOM)
+        tasks.splice(delTaskDOM, 1)
+        // tasks.find(({id}) => id === deleteId)
     }
 
     // Completes Project
