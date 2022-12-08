@@ -482,3 +482,10 @@ function findTaskIndex(taskId) {
     let getTaskDOM = tasks.indexOf(taskDOM)
     return getTaskDOM
 }
+
+// Find Index of Project Being Changed
+function findProjectIndex(projectId) {
+    projectDOM = projects.find(({id}) => id === projectId)
+    let getProjectDOM = projects.indexOf(projectDOM)
+    return getProjectDOM
+}
