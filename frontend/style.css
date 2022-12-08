@@ -1,6 +1,7 @@
 div.projects {
     margin-bottom: 2%;
     border-radius: 30px;
+    max-width: 40%;
 }
 
 div#ProjectForm {
@@ -50,4 +51,8 @@ button {
 
 li {
     cursor: pointer;
+}
+
+h1 {
+    width: 50%;
 }
