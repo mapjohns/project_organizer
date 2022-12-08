@@ -323,9 +323,8 @@ class Task {
         .then(document.getElementById(e.composedPath()[2].id).remove())
 
         // Delete from tasks array
-        taskDOM = tasks.find(({id}) => id === parseInt(e.composedPath()[0].id.substring(10), 10))
-        let delTaskDOM = tasks.indexOf(taskDOM)
-        tasks.splice(delTaskDOM, 1)
+        let tasksIndex = findTaskIndex(parseInt(e.composedPath()[0].id.substring(10), 10))
+        tasks.splice(tasksIndex, 1)
         // tasks.find(({id}) => id === deleteId)
     }
 
@@ -470,4 +469,11 @@ function sortProjectsByDueDate() {
     })
     projects.map(a => Project.addProjectsToDOM(a))
     tasks.map(a => Task.addTasksToDOM(a))
+}
+
+// Find Index of Element Being Changed
+function findTaskIndex(taskId) {
+    taskDOM = tasks.find(({id}) => id === taskId)
+    let getTaskDOM = tasks.indexOf(taskDOM)
+    return getTaskDOM
 }
