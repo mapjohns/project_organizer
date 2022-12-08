@@ -64,6 +64,11 @@ class Project {
             document.getElementById(`project${object.id}`).querySelector('h2').innerHTML = object.name
             document.getElementById(`project${object.id}`).querySelector('h3').innerHTML = descField.value
             document.getElementById(`project${object.id}`).querySelector('h3 + h3').innerHTML = `Due: ${dateField.value}`
+
+            // Updates Project in projects array
+            projects[findProjectIndex(parseInt(projectID))].name = object.name
+            projects[findProjectIndex(parseInt(projectID))].descField = object.descField
+            projects[findProjectIndex(parseInt(projectID))].descField = object.dateField
         })
     }
 
@@ -102,6 +107,7 @@ class Project {
         })
         .then(console.log("SUCCESS"))
         .then(document.getElementById(e.composedPath()[2].id).remove())
+        // Deletes from projects array to match db
         .then(projects.splice(findProjectIndex(parseInt(deleteID)), 1))
     }
 
