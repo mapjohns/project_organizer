@@ -344,6 +344,9 @@ class Task {
                 status: "Complete"
             })
         })
+        .then(resp => resp.json())
+        // Updates task array to have the correct status as the db
+        .then(object => tasks[findTaskIndex(parseInt(taskId))].status = object.status )
         .then(e.composedPath()[2].querySelector('li').className = "strikeThrough")
     }
 
