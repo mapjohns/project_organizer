@@ -102,6 +102,7 @@ class Project {
         })
         .then(console.log("SUCCESS"))
         .then(document.getElementById(e.composedPath()[2].id).remove())
+        .then(projects.splice(findProjectIndex(parseInt(deleteID)), 1))
     }
 
     static addProjectsToDOM(project) {
