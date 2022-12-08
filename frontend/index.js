@@ -94,6 +94,7 @@ class Project {
         })
         .then(resp => resp.json())
         .then(object => document.querySelector(`#${projectClass}`).classList.replace(document.querySelector(`#${projectClass}`).classList[1], `${object.status.toLocaleLowerCase()}Project`))
+        .then(projects[findProjectIndex(parseInt(e.composedPath()[0].id.substring(10)))].status = "Complete")
         .then(console.log("Success!"))
     }
     }
