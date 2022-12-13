@@ -246,11 +246,13 @@ function toggleUpdateFormVisibility(e) {
    path.className === "" ? path.className = "hiddenUpdateForm" : path.className = ""
 }
 
-// Fetch request to get all projects
+// Fetch request to get all projects and corresponding tasks
 fetch('http://localhost:3000/projects')
 .then(resp => resp.json())
-.then(data => addProjects(data))
-.then(getTasks)
+.then(data => {
+    addProjects(data)
+    Array.from(data).map(a =>addTasksToProjects(a.tasks))
+})
 
 // Called by projects fetch, will add projects to the page
 function addProjects(projects) {
@@ -427,13 +429,6 @@ class Task {
         return taskContainer
     }
 
-}
-
-// Fetch tasks and add to page called by Project Fetch
-function getTasks() {
-fetch('http://localhost:3000/tasks')
-.then(resp => resp.json())
-.then(data => addTasksToProjects(data))
 }
 
 
